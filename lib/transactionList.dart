@@ -5,14 +5,29 @@ import 'package:intl/intl.dart';
 class TransactionList extends StatelessWidget {
   late List<Transation> transations;
   TransactionList(this.transations);
-
+  
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return 
+    Container(
       height: 300,
-      child: SingleChildScrollView(
-        child: ListView(
-          children: transations.map((trans) {
+        child: transations.isEmpty ? Column(
+          children: <Widget>[
+            Text("Ops... No Transactions added Yet!!!" ,
+            style: Theme.of(context).textTheme.headline6,
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Expanded(
+              child: Image.asset("assests/images/waiting.png",
+              fit: BoxFit.cover,
+              ),
+            ),
+          ],
+        ) : ListView.builder( 
+          itemCount: transations.length,
+          itemBuilder: (ctx, index) {                    
             return Card(
               child: Row(
                 children: [
@@ -20,15 +35,18 @@ class TransactionList extends StatelessWidget {
                     margin: EdgeInsets.all(10),
                     padding: EdgeInsets.symmetric(horizontal: 3, vertical: 22),
                     decoration: BoxDecoration(
-                      border: Border.all(color: Colors.blue, width: 3),
+                      border: Border.all(color:Theme.of(context).primaryColor, width: 3),
                     ),
-                    child: Text(
-                      "\$${trans.amount}",
-                      style: TextStyle(
-                          color: Colors.blue,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold),
-                      // trans.amount.toString(),
+                    child: Container(
+                      width: 80,
+                      child: Text(
+                        "\$${transations[index].amount.toStringAsFixed(2)}",
+                        style: TextStyle(
+                            color: Theme.of(context).accentColor,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold),
+                        // trans.amount.toString(),
+                      ),
                     ),
                   ),
                   Column(
@@ -38,26 +56,24 @@ class TransactionList extends StatelessWidget {
                       Container(
                         padding: EdgeInsets.all(10),
                         decoration: BoxDecoration(
-                          border: Border.all(color: Colors.blue),
+                          border: Border.all(color:Theme.of(context).primaryColor),
                         ),
                         child: Text(
-                          style: TextStyle(
-                              color: Colors.blue,
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold),
-                          trans.title.toString(),
+                          style: Theme.of(context).textTheme.headline6,
+                          transations[index].title.toString(),
                         ),
                       ),
                       Container(
                         padding: EdgeInsets.all(10),
                         decoration: BoxDecoration(
-                          border: Border.all(color: Colors.blue),
+                          border: Border.all(color: Theme.of(context).primaryColor),
                         ),
                         child: Text(
                           // trans.date.toString(),
-                          DateFormat.yMd().add_jm().format(trans.date),
+                          DateFormat.yMd().add_jm().format(transations[index].date),
                           style: TextStyle(
-                              color: Color.fromARGB(255, 55, 130, 204)),
+                              color: Theme.of(context).accentColor,
+                          ),
                         ),
                       ),
                     ],
@@ -65,9 +81,10 @@ class TransactionList extends StatelessWidget {
                 ],
               ),
             );
-          }).toList(),
+          
+          },
         ),
-      ),
+      
     );
   }
 }
