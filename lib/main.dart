@@ -1,4 +1,7 @@
+import 'dart:js_util';
+
 import 'package:flutter/material.dart';
+import 'package:module_four_apk/chart.dart';
 import 'transactionList.dart';
 import 'new_transactions.dart';
 import 'models/Transaction.dart';
@@ -16,20 +19,17 @@ class MyApp extends StatelessWidget {
         accentColor: Colors.black,
         fontFamily: "OpenSans",
         textTheme: ThemeData.light().textTheme.copyWith(
-          headline6: TextStyle(
-            fontFamily: "OpenSans",
-            fontSize: 15,
-            fontWeight: FontWeight.bold,
-          )
-        ),
+                headline6: TextStyle(
+              fontFamily: "OpenSans",
+              fontSize: 15,
+              fontWeight: FontWeight.bold,
+            )),
         appBarTheme: AppBarTheme(
             titleTextStyle: TextStyle(
-              fontFamily: "Quicksand",
-              fontWeight: FontWeight.bold,
-              fontSize: 30,
-            ) 
-          
-        ),
+          fontFamily: "Quicksand",
+          fontWeight: FontWeight.bold,
+          fontSize: 30,
+        )),
       ),
       home: MyHomePage(),
     );
@@ -57,6 +57,16 @@ class _MyHomePageState extends State<MyHomePage> {
     // )
   ];
 
+  List<Transation> get _recentTransactions {
+    return _userTransaction.where((tx) {
+      return tx.date.isAfter(
+        DateTime.now().subtract(
+          Duration(days: 7),
+        ),
+      );
+    }).toList();
+  }
+
   void _addNewTransaction(String txTitle, double txAmount) {
     final newTx = Transation(
       id: DateTime.now().toString(),
@@ -75,11 +85,9 @@ class _MyHomePageState extends State<MyHomePage> {
         context: ctx,
         builder: (_) {
           return GestureDetector(
-            onTap: (() {
-              
-            }),
-            behavior: HitTestBehavior.opaque, 
-            child: NewTransaction(_addNewTransaction));
+              onTap: (() {}),
+              behavior: HitTestBehavior.opaque,
+              child: NewTransaction(_addNewTransaction));
         });
   }
 
@@ -101,15 +109,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Card(
-              elevation: 8,
-              child: Container(
-                color: Theme.of(context).primaryColor,
-                width: double.infinity,
-                child: Text("how much spent last week",
-                    textAlign: TextAlign.center),
-              ),
-            ),
+            Chart(_recentTransactions),
             TransactionList(_userTransaction),
           ],
         ),
