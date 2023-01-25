@@ -11,9 +11,6 @@ class TransactionList extends StatelessWidget {
     return 
     Container(
       height: 300,
-<<<<<<< HEAD
-        child: ListView.builder( 
-=======
         child: transations.isEmpty ? Column(
           children: <Widget>[
             Text("Ops... No Transactions added Yet!!!" ,
@@ -29,7 +26,6 @@ class TransactionList extends StatelessWidget {
             ),
           ],
         ) : ListView.builder( 
->>>>>>> bf7c1b2bd60372d7c0d909cf30b1b4f66eebc04a
           itemCount: transations.length,
           itemBuilder: (ctx, index) {                    
             return Card(
@@ -63,14 +59,7 @@ class TransactionList extends StatelessWidget {
                           border: Border.all(color:Theme.of(context).primaryColor),
                         ),
                         child: Text(
-<<<<<<< HEAD
-                          style: TextStyle(
-                              color: Theme.of(context).primaryColor,
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold),
-=======
                           style: Theme.of(context).textTheme.headline6,
->>>>>>> bf7c1b2bd60372d7c0d909cf30b1b4f66eebc04a
                           transations[index].title.toString(),
                         ),
                       ),

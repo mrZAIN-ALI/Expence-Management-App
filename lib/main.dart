@@ -14,8 +14,6 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.red,
         accentColor: Colors.black,
-<<<<<<< HEAD
-=======
         fontFamily: "OpenSans",
         textTheme: ThemeData.light().textTheme.copyWith(
           headline6: TextStyle(
@@ -32,7 +30,6 @@ class MyApp extends StatelessWidget {
             ) 
           
         ),
->>>>>>> bf7c1b2bd60372d7c0d909cf30b1b4f66eebc04a
       ),
       home: MyHomePage(),
     );
@@ -46,20 +43,6 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transation> _userTransaction = [
-<<<<<<< HEAD
-    Transation(
-      id: "New",
-      title: "Adding First item",
-      amount: 36.5,
-      date: DateTime.now(),
-    ),
-    Transation(
-      id: "New2",
-      title: "Adding secpmd item",
-      amount: 55.54,
-      date: DateTime.now(),
-    )
-=======
     // Transation(
     //   id: "New",
     //   title: "Adding First item",
@@ -72,7 +55,6 @@ class _MyHomePageState extends State<MyHomePage> {
     //   amount: 55.54,
     //   date: DateTime.now(),
     // )
->>>>>>> bf7c1b2bd60372d7c0d909cf30b1b4f66eebc04a
   ];
 
   void _addNewTransaction(String txTitle, double txAmount) {
@@ -96,11 +78,7 @@ class _MyHomePageState extends State<MyHomePage> {
             onTap: (() {
               
             }),
-<<<<<<< HEAD
-            behavior: HitTestBehavior.opaque,
-=======
             behavior: HitTestBehavior.opaque, 
->>>>>>> bf7c1b2bd60372d7c0d909cf30b1b4f66eebc04a
             child: NewTransaction(_addNewTransaction));
         });
   }
