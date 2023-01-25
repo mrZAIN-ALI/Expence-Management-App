@@ -59,6 +59,13 @@ class _MyHomePageState extends State<MyHomePage> {
     // )
   ];
 
+  List<Transation> get _listOfTrasactions{
+
+    return _userTransaction.where(((tx) {
+      return tx.date
+    })
+  }
+
   void _addNewTransaction(String txTitle, double txAmount) {
     final newTx = Transation(
       id: DateTime.now().toString(),
