@@ -1,11 +1,35 @@
-import 'package:flutter/material.dart';
-import 'user_Trnsaction.dart';
 
-class NewTransaction extends StatelessWidget {
-  final titleController = TextEditingController();
-  final amountController = TextEditingController();
+import 'package:flutter/material.dart';
+
+class NewTransaction extends StatefulWidget {
   late Function addTx;
   NewTransaction(this.addTx);
+
+  @override
+  State<NewTransaction> createState() => _NewTransactionState();
+}
+
+class _NewTransactionState extends State<NewTransaction> {
+  final titleController = TextEditingController();
+
+  final amountController = TextEditingController();
+
+  void submitData(){
+    final enteredTitle=titleController.text;
+    double enteredAmount=0.0;
+    if (!amountController.text.isEmpty) {
+    enteredAmount=double.parse(amountController.text);      
+    }
+
+    if (enteredTitle.isEmpty||enteredAmount<=0) {
+      return;
+    }
+    widget.addTx(
+      enteredTitle, enteredAmount
+    );
+    Navigator.of(context).pop();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -27,8 +51,9 @@ class NewTransaction extends StatelessWidget {
               // onChanged: (value) {
               //   amount=value;
               // },
-
               controller: amountController,
+              keyboardType: TextInputType.number,
+              onSubmitted: (_) => submitData(),
             ),
             ElevatedButton(
               onPressed: () {
@@ -36,8 +61,7 @@ class NewTransaction extends StatelessWidget {
                 // print(amount);
                 // print(titleController.text);
                 // print(amountController.text);
-                addTx(
-                    titleController.text, double.parse(amountController.text));
+               submitData();
               },
               child: Text("Save Data"),
             )
