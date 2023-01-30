@@ -1,4 +1,6 @@
 
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 
 class NewTransaction extends StatefulWidget {
@@ -55,6 +57,27 @@ class _NewTransactionState extends State<NewTransaction> {
               keyboardType: TextInputType.number,
               onSubmitted: (_) => submitData(),
             ),
+
+            SizedBox(height: 10,),
+            Row(children: [
+              
+              Text("NO Date Choesen..!" , style :Theme.of(context).textTheme.headline6),
+
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: 10),
+                  child: TextButton(onPressed: (){
+                
+                    },
+                    child: Text("Chose Date"),
+                    
+                    
+                  ),
+                )
+              ],
+            ),
+
+            SizedBox(height: 10,),
+
             ElevatedButton(
               onPressed: () {
                 // print(title);

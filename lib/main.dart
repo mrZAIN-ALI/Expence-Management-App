@@ -17,11 +17,17 @@ class MyApp extends StatelessWidget {
         accentColor: Colors.black,
         fontFamily: "OpenSans",
         textTheme: ThemeData.light().textTheme.copyWith(
-                headline6: TextStyle(
+              headline6: TextStyle(
               fontFamily: "OpenSans",
               fontSize: 15,
               fontWeight: FontWeight.bold,
-            )),
+              ),
+
+              button : TextStyle(
+                color: Colors.white,
+              )
+
+        ),
         appBarTheme: AppBarTheme(
             titleTextStyle: TextStyle(
           fontFamily: "Quicksand",
