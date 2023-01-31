@@ -15,25 +15,28 @@ class _NewTransactionState extends State<NewTransaction> {
   final titleController = TextEditingController();
 
   final amountController = TextEditingController();
+  DateTime? _pickedDate = null;
+
+  void _revealDatePicker() {
+    showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2021),
+      lastDate: DateTime.now(),
+    ).then(
+      (selectedDateFromFututreWidged) {
+        if (selectedDateFromFututreWidged == null) {
+          return;
+        }
+
+        _pickedDate = selectedDateFromFututreWidged;
+      },
+    );
+  }
 
   void submitData() {
     final enteredTitle = titleController.text;
     double enteredAmount = 0.0;
-    DateTime? _pickedDate = null;
-
-    void _revealDatePicker() {
-      showDatePicker(
-        context: context,
-        initialDate: DateTime.now(),
-        firstDate: DateTime(2021),
-        lastDate: DateTime.now(),
-      ).then((value) => _pickedDate);
-
-      if (_pickedDate== null) {
-        return;
-      }
-      
-    }
 
     if (!amountController.text.isEmpty) {
       enteredAmount = double.parse(amountController.text);
@@ -76,16 +79,16 @@ class _NewTransactionState extends State<NewTransaction> {
             ),
             Row(
               children: [
-                Text("NO Date Choesen..!",
+                Text( _pickedDate==null ? "NO Date Choesen..!" : "Chosed Dat ${DateFormat.yMd().format(_pickedDate)}",
                     style: Theme.of(context).textTheme.headline6),
                 Container(
                   margin: EdgeInsets.symmetric(horizontal: 10),
                   child: TextButton(
-                    onPressed: () {},
                     child: Text(
                       "Chose Date",
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
+                    onPressed: _revealDatePicker,
                   ),
                 )
               ],
