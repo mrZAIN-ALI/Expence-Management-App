@@ -1,6 +1,6 @@
-
 import 'dart:ffi';
 
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 
 class NewTransaction extends StatefulWidget {
@@ -16,19 +16,33 @@ class _NewTransactionState extends State<NewTransaction> {
 
   final amountController = TextEditingController();
 
-  void submitData(){
-    final enteredTitle=titleController.text;
-    double enteredAmount=0.0;
-    if (!amountController.text.isEmpty) {
-    enteredAmount=double.parse(amountController.text);      
+  void submitData() {
+    final enteredTitle = titleController.text;
+    double enteredAmount = 0.0;
+    DateTime? _pickedDate = null;
+
+    void _revealDatePicker() {
+      showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime(2021),
+        lastDate: DateTime.now(),
+      ).then((value) => _pickedDate);
+
+      if (_pickedDate== null) {
+        return;
+      }
+      
     }
 
-    if (enteredTitle.isEmpty||enteredAmount<=0) {
+    if (!amountController.text.isEmpty) {
+      enteredAmount = double.parse(amountController.text);
+    }
+
+    if (enteredTitle.isEmpty || enteredAmount <= 0) {
       return;
     }
-    widget.addTx(
-      enteredTitle, enteredAmount
-    );
+    widget.addTx(enteredTitle, enteredAmount);
     Navigator.of(context).pop();
   }
 
@@ -57,36 +71,38 @@ class _NewTransactionState extends State<NewTransaction> {
               keyboardType: TextInputType.number,
               onSubmitted: (_) => submitData(),
             ),
-
-            SizedBox(height: 10,),
-            Row(children: [
-              
-              Text("NO Date Choesen..!" , style :Theme.of(context).textTheme.headline6),
-
+            SizedBox(
+              height: 10,
+            ),
+            Row(
+              children: [
+                Text("NO Date Choesen..!",
+                    style: Theme.of(context).textTheme.headline6),
                 Container(
                   margin: EdgeInsets.symmetric(horizontal: 10),
-                  child: TextButton(onPressed: (){
-                
-                    },
-                    child: Text("Chose Date"),
-                    
-                    
+                  child: TextButton(
+                    onPressed: () {},
+                    child: Text(
+                      "Chose Date",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
                   ),
                 )
               ],
             ),
-
-            SizedBox(height: 10,),
-
+            SizedBox(
+              height: 10,
+            ),
             ElevatedButton(
               onPressed: () {
                 // print(title);
                 // print(amount);
                 // print(titleController.text);
                 // print(amountController.text);
-               submitData();
+                submitData();
               },
-              child: Text("Save Data"),
+              child:
+                  Text("Save Data", style: Theme.of(context).textTheme.button),
             )
           ],
         ),
