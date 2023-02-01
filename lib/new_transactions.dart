@@ -38,14 +38,14 @@ class _NewTransactionState extends State<NewTransaction> {
     final enteredTitle = titleController.text;
     double enteredAmount = 0.0;
 
-    if (!amountController.text.isEmpty) {
+    if (!amountController.text.isEmpty ) {
       enteredAmount = double.parse(amountController.text);
     }
 
-    if (enteredTitle.isEmpty || enteredAmount <= 0) {
+    if (enteredTitle.isEmpty || enteredAmount <= 0 || _pickedDate==null) {
       return;
     }
-    widget.addTx(enteredTitle, enteredAmount);
+    widget.addTx(enteredTitle, enteredAmount,_pickedDate);
     Navigator.of(context).pop();
   }
 
@@ -79,8 +79,11 @@ class _NewTransactionState extends State<NewTransaction> {
             ),
             Row(
               children: [
-                Text( _pickedDate==null ? "NO Date Choesen..!" : "Chosed Dat ${DateFormat.yMd().format(_pickedDate)}",
-                    style: Theme.of(context).textTheme.headline6),
+                Expanded(
+                  
+                  child: Text( _pickedDate==null ? "NO Date Choesen..!" : "Chosed date:  ${DateFormat.yMd().format(_pickedDate!)}",
+                      style: Theme.of(context).textTheme.headline6),
+                ),
                 Container(
                   margin: EdgeInsets.symmetric(horizontal: 10),
                   child: TextButton(

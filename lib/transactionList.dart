@@ -4,13 +4,14 @@ import 'package:intl/intl.dart';
 
 class TransactionList extends StatelessWidget {
   late List<Transation> transations;
-  TransactionList(this.transations);
+  late Function delteTx;
+  TransactionList(this.transations,this.delteTx);
   
   @override
   Widget build(BuildContext context) {
     return 
     Container(
-      height: 300,
+      height: 400,
         child: transations.isEmpty ? Column(
           children: <Widget>[
             Text("Ops... No Transactions added Yet!!!" ,
@@ -48,6 +49,8 @@ class TransactionList extends StatelessWidget {
                 ),
 
                 subtitle: Text(DateFormat.yMMMd().format(transations[index].date)),
+
+                trailing: IconButton(onPressed:() => delteTx(transations[index].id,) , icon: Icon(Icons.delete)),
               ),
             );
           
