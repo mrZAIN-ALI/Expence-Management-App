@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:module_four_apk/chart.dart';
-import 'transactionList.dart';
-import 'new_transactions.dart';
+import 'package:module_four_apk/Widgets/chart.dart';
+import 'Widgets/transactionList.dart';
+import 'Widgets/new_transactions.dart';
 import 'models/Transaction.dart';
 import 'package:intl/intl.dart';
 
